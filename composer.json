@@ -1,0 +1,15 @@
+{
+    "name": "mihaibalalau/zxqwensadlvzpoe",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Mihaib\\PortalJustService\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mihai Balalau"
+        }
+    ],
+    "require": {}
+}
