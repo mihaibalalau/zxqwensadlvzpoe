@@ -2,6 +2,8 @@
 
 namespace Mihaib\PortalJustService\Dosar;
 
+use Mihaib\PortalJustService\Exceptions\InvalidQueryException;
+
 class GetDosarePortalQuery
 {
     public function __construct(
@@ -14,13 +16,16 @@ class GetDosarePortalQuery
         public ?string $dataUltimaModificareStart = null,
         public ?string $dataUltimaModificareStop = null,
     ) {
+        if (!$this->isValid()) {
+            throw new InvalidQueryException();
+        }
     }
 
     public function isValid(): bool
     {
-        return !isset($numarDosar) &&
-            !isset($obiectDosar) &&
-            !isset($numeParte);
+        return isset($numarDosar) ||
+            isset($obiectDosar) ||
+            isset($numeParte);
     }
 
     public function toArray(): array

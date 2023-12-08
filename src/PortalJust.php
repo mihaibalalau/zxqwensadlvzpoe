@@ -6,6 +6,7 @@ use Exception;
 use Mihaib\PortalJustService\Dosar\DosarPortalFactory;
 use Mihaib\PortalJustService\Dosar\Entities\DosarePortalCollection;
 use Mihaib\PortalJustService\Dosar\GetDosarePortalQuery;
+use Mihaib\PortalJustService\Exceptions\InvalidQueryException;
 use Mihaib\PortalJustService\Services\ApiClient;
 use stdClass;
 
@@ -21,10 +22,6 @@ class PortalJust
 
     public function getDosare(GetDosarePortalQuery $query): DosarePortalCollection
     {
-        if (!$query->isValid()) {
-            throw new Exception("Invalid query!");
-        }
-
         $response = $this->client->request('CautareDosare2', array_filter($query->toArray(), fn ($v) => !is_null($v)));
 
         if (!isset($response->CautareDosare2Result)) {
