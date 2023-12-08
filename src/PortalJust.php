@@ -4,7 +4,7 @@ namespace Mihaib\PortalJustService;
 
 use Exception;
 use Mihaib\PortalJustService\Dosar\DosarPortalFactory;
-use Mihaib\PortalJustService\Dosar\Entities\DosarPortalCollection;
+use Mihaib\PortalJustService\Dosar\Entities\DosarePortalCollection;
 use Mihaib\PortalJustService\Dosar\GetDosarePortalQuery;
 use Mihaib\PortalJustService\Services\ApiClient;
 use stdClass;
@@ -19,7 +19,7 @@ class PortalJust
         $this->client = new ApiClient($wsdlPath);
     }
 
-    public function getDosare(GetDosarePortalQuery $query): DosarPortalCollection
+    public function getDosare(GetDosarePortalQuery $query): DosarePortalCollection
     {
         if (!$query->isValid()) {
             throw new Exception("Invalid query!");
@@ -28,7 +28,7 @@ class PortalJust
         $response = $this->client->request('CautareDosare2', array_filter($query->toArray(), fn ($v) => !is_null($v)));
 
         if (!isset($response->CautareDosare2Result)) {
-            return new DosarPortalCollection();
+            return new DosarePortalCollection();
         }
 
         if (!is_array($response->CautareDosare2Result->Dosar)) {
@@ -37,7 +37,7 @@ class PortalJust
             $result = $response->CautareDosare2Result->Dosar;
         }
 
-        return new DosarPortalCollection(array_map(fn (stdClass $data) => DosarPortalFactory::fromObject($data), $result));
+        return new DosarePortalCollection(array_map(fn (stdClass $data) => DosarPortalFactory::fromObject($data), $result));
     }
 
     // public function getSedinte(array $filters)
