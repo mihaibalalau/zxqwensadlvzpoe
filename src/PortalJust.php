@@ -28,7 +28,7 @@ class PortalJust
         $response = $this->client->request('CautareDosare2', array_filter($query->toArray(), fn ($v) => !is_null($v)));
 
         if (!isset($response->CautareDosare2Result)) {
-            return [];
+            return new DosarPortalCollection();
         }
 
         if (!is_array($response->CautareDosare2Result->Dosar)) {
