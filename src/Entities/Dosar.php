@@ -4,11 +4,7 @@ namespace Mihaib\PortalJustService\Entities;
 
 use Mihaib\PortalJustService\Collections\CaiAtacCollection;
 use Mihaib\PortalJustService\Collections\PartiCollection;
-use Mihaib\PortalJustService\Collections\PartiPortalCollection;
 use Mihaib\PortalJustService\Collections\TermeneCollection;
-use Mihaib\PortalJustService\Dosar\Values\CaleAtac;
-use Mihaib\PortalJustService\Dosar\Values\Parte;
-use Mihaib\PortalJustService\Dosar\Values\Termen;
 
 class Dosar
 {
