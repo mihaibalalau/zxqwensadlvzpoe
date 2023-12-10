@@ -10,11 +10,6 @@ use Mihaib\PortalJustService\Dosar\Values\CaleAtac;
 use Mihaib\PortalJustService\Dosar\Values\Parte;
 use Mihaib\PortalJustService\Dosar\Values\Termen;
 
-/**
- * @property Termen[] $termene
- * @property Parte[] $parti
- * @property CaleAtac[] $caiAtac
- */
 class Dosar
 {
     public function __construct(
