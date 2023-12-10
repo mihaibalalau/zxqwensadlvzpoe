@@ -14,7 +14,6 @@ class ApiClient
         $this->client = new \SoapClient($wsdlPath);
     }
 
-
     public function request(string $path, array $params): stdClass
     {
         $response = $this->client->$path($params);
@@ -22,4 +21,3 @@ class ApiClient
         return $response;
     }
 }
-

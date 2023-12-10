@@ -2,55 +2,34 @@
 
 namespace Mihaib\PortalJustService;
 
-use Exception;
-use Mihaib\PortalJustService\Dosar\DosarPortalFactory;
-use Mihaib\PortalJustService\Dosar\Entities\DosarePortalCollection;
-use Mihaib\PortalJustService\Dosar\GetDosarePortalQuery;
-use Mihaib\PortalJustService\Exceptions\InvalidQueryException;
-use Mihaib\PortalJustService\Services\ApiClient;
-use stdClass;
+use Mihaib\PortalJustService\Services\DosarService;
+use Mihaib\PortalJustService\Queries\GetDosareQuery;
+use Mihaib\PortalJustService\Queries\GetSedinteQuery;
+use Mihaib\PortalJustService\Services\SedintaService;
+use Mihaib\PortalJustService\Services\PortalApiClient;
+use Mihaib\PortalJustService\Collections\DosareCollection;
+use Mihaib\PortalJustService\Collections\SedinteCollection;
 
 class PortalJust
 {
-    private ApiClient $client;
+    private DosarService $dosarService;
+    private SedintaService $sedintaService;
 
     public function __construct(
         string $wsdlPath
     ) {
-        $this->client = new ApiClient($wsdlPath);
+        $portalClient = new PortalApiClient($wsdlPath);
+        $this->dosarService = new DosarService($portalClient);
+        $this->sedintaService = new SedintaService($portalClient);
     }
 
-    public function getDosare(GetDosarePortalQuery $query): DosarePortalCollection
+    public function getDosare(GetDosareQuery $query): DosareCollection
     {
-        $response = $this->client->request('CautareDosare2', array_filter($query->toArray(), fn ($v) => !is_null($v)));
-
-        if (!isset($response->CautareDosare2Result)) {
-            return new DosarePortalCollection();
-        }
-
-        if (!is_array($response->CautareDosare2Result->Dosar)) {
-            $result = [$response->CautareDosare2Result->Dosar];
-        } else {
-            $result = $response->CautareDosare2Result->Dosar;
-        }
-
-        return new DosarePortalCollection(array_map(fn (stdClass $data) => DosarPortalFactory::fromObject($data), $result));
+        return $this->dosarService->get($query);
     }
 
-    // public function getSedinte(array $filters)
-    // {
-    //     $response = $this->client->request('CautareSedinte', $filters);
-
-    //     if (!isset($response->CautareSedinteResult)) {
-    //         return [];
-    //     }
-
-    //     if (!is_array($response->CautareSedinteResult->Sedinta)) {
-    //         $result = [$response->CautareSedinteResult->Sedinta];
-    //     } else {
-    //         $result = $response->CautareSedinteResult->Sedinta;
-    //     }
-
-    //     return $result;
-    // }
+    public function getSedinte(GetSedinteQuery $query): SedinteCollection
+    {
+        return $this->sedintaService->get($query);
+    }
 }
