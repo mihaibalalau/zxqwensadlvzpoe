@@ -29,7 +29,15 @@ class DosarService
             return new DosareCollection();
         }
 
-        return new DosareCollection(array_map([$this, 'buildDosar'], $response->CautareDosare2Result->Dosar));
+        $data = $response->CautareDosare2Result->Dosar;
+
+        if (!is_array($data)) {
+            $dosare = [$this->buildDosar($data)];
+        } else {
+            $dosare = array_map([$this, 'buildDosar'], $data);
+        }
+
+        return new DosareCollection($dosare);
     }
 
     private function buildDosar(stdClass $data): Dosar
