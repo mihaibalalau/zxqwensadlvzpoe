@@ -7,6 +7,6 @@ use Mihaib\PortalJustService\Entities\Sedinta;
 /**
  * @property Sedinta[] $items 
  */
-class SedinteCollection
+class SedinteCollection extends Collection
 {
 }

@@ -7,6 +7,6 @@ use Mihaib\PortalJustService\Entities\DosarPortal;
 /**
  * @property DosarPortal[] $items 
  */
-class DosareCollection
+class DosareCollection extends Collection
 {
 }
