@@ -2,10 +2,10 @@
 
 namespace Mihaib\PortalJustService\Collections;
 
-use Mihaib\PortalJustService\Entities\DosarPortal;
+use Mihaib\PortalJustService\Entities\Dosar;
 
 /**
- * @property DosarPortal[] $items 
+ * @property Dosar[] $items 
  */
 class DosareCollection extends Collection
 {
