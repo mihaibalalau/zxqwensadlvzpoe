@@ -15,6 +15,7 @@ class ApiClient
     {
         $this->client = new \SoapClient($wsdlPath, [
             'soap_version' => SOAP_1_2,
+            'keep_alive' => false,
             'trace' => true,
             'exceptions' => true
         ]);
