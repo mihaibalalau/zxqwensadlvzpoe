@@ -44,7 +44,7 @@ class ApiClient
     private function manualParseXml(string $source): SimpleXMLElement
     {
         $source = str_replace('xmlns="portalquery.just.ro"', 'xmlns="http://portalquery.just.ro"', $source);
-        $source = preg_replace('/&#x(?:0[0-9A-Fa-f]|1[0-9A-Fa-f]);/', '', $source);
+        $source = preg_replace('/&#x[0-9A-Fa-f]+;/', '', $source);
 
         $xml =  simplexml_load_string($source);
 
